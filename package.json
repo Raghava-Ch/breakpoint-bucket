@@ -1,0 +1,160 @@
+{
+  "name": "breakpoint-groups",
+  "displayName": "Breakpoint Groups",
+  "description": "Group breakpoints and enable/disable them collectively or individually",
+  "version": "0.1.0",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Debuggers",
+    "Other"
+  ],
+  "keywords": [
+    "breakpoint",
+    "debug",
+    "group",
+    "debugging"
+  ],
+  "activationEvents": [
+    "onView:breakpointGroups"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "views": {
+      "debug": [
+        {
+          "id": "breakpointGroups",
+          "name": "Breakpoint Groups",
+          "when": "breakpointsExist"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "breakpointGroups.createGroup",
+        "title": "Create New Group",
+        "icon": "$(add)"
+      },
+      {
+        "command": "breakpointGroups.addToGroup",
+        "title": "Add to Group"
+      },
+      {
+        "command": "breakpointGroups.removeFromGroup",
+        "title": "Remove from Group"
+      },
+      {
+        "command": "breakpointGroups.enableGroup",
+        "title": "Enable Group"
+      },
+      {
+        "command": "breakpointGroups.disableGroup",
+        "title": "Disable Group"
+      },
+      {
+        "command": "breakpointGroups.deleteGroup",
+        "title": "Delete Group"
+      },
+      {
+        "command": "breakpointGroups.renameGroup",
+        "title": "Rename Group"
+      },
+      {
+        "command": "breakpointGroups.enableBreakpoint",
+        "title": "Enable Breakpoint"
+      },
+      {
+        "command": "breakpointGroups.disableBreakpoint",
+        "title": "Disable Breakpoint"
+      },
+      {
+        "command": "breakpointGroups.createGroupFromBreakpoint",
+        "title": "Create Group from Breakpoint"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "breakpointGroups.createGroup",
+          "when": "view == breakpointGroups",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "breakpointGroups.enableGroup",
+          "when": "view == breakpointGroups && viewItem == group",
+          "group": "1_enable_disable"
+        },
+        {
+          "command": "breakpointGroups.disableGroup",
+          "when": "view == breakpointGroups && viewItem == group",
+          "group": "1_enable_disable"
+        },
+        {
+          "command": "breakpointGroups.renameGroup",
+          "when": "view == breakpointGroups && viewItem == group",
+          "group": "2_manage"
+        },
+        {
+          "command": "breakpointGroups.deleteGroup",
+          "when": "view == breakpointGroups && viewItem == group",
+          "group": "2_manage"
+        },
+        {
+          "command": "breakpointGroups.enableBreakpoint",
+          "when": "view == breakpointGroups && viewItem == breakpoint",
+          "group": "1_enable_disable"
+        },
+        {
+          "command": "breakpointGroups.disableBreakpoint",
+          "when": "view == breakpointGroups && viewItem == breakpoint",
+          "group": "1_enable_disable"
+        },
+        {
+          "command": "breakpointGroups.removeFromGroup",
+          "when": "view == breakpointGroups && viewItem == breakpoint",
+          "group": "2_manage"
+        },
+        {
+          "command": "breakpointGroups.enableBreakpoint",
+          "when": "view == breakpointGroups && viewItem == ungrouped-breakpoint",
+          "group": "1_enable_disable"
+        },
+        {
+          "command": "breakpointGroups.disableBreakpoint",
+          "when": "view == breakpointGroups && viewItem == ungrouped-breakpoint",
+          "group": "1_enable_disable"
+        },
+        {
+          "command": "breakpointGroups.addToGroup",
+          "when": "view == breakpointGroups && viewItem == ungrouped-breakpoint",
+          "group": "2_manage"
+        },
+        {
+          "command": "breakpointGroups.createGroupFromBreakpoint",
+          "when": "view == breakpointGroups && viewItem == ungrouped-breakpoint",
+          "group": "2_manage"
+        }
+      ],
+      "breakpoints/context": [
+        {
+          "command": "breakpointGroups.addToGroup",
+          "when": "breakpoint"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "typescript": "^4.9.4"
+  }
+}
