@@ -67,9 +67,6 @@ export class BreakpointManager {
     this._onDidChangeGroups.fire();
   }
 
-  private generateBreakpointId(breakpoint: vscode.SourceBreakpoint): string {
-    return `${breakpoint.location.uri.fsPath}:${breakpoint.location.range.start.line + 1}`;
-  }
 
   createGroup(name: string, description?: string): BreakpointGroup {
     const group: BreakpointGroup = {
@@ -255,19 +252,28 @@ export class BreakpointManager {
     return this.getGroupForBreakpoint(breakpointId) !== undefined;
   }
 
+  generateBreakpointId(breakpoint: vscode.SourceBreakpoint): string {
+    return `${breakpoint.location.uri.fsPath}:${breakpoint.location.range.start.line + 1}`;
+  }
+
   private generateGroupId(): string {
     return `group_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 
-  private saveGroups(): void {
-    const groupsData = Array.from(this.groups.values());
-    this.context.workspaceState.update('breakpointGroups', groupsData);
-  }
 
   private loadGroups(): void {
     const groupsData = this.context.workspaceState.get<BreakpointGroup[]>('breakpointGroups', []);
     groupsData.forEach((group: BreakpointGroup) => {
       this.groups.set(group.id, group);
     });
+  }
+
+  public saveGroups(): void {
+    const groupsData = Array.from(this.groups.values());
+    this.context.workspaceState.update('breakpointGroups', groupsData);
+  }
+
+  public fireGroupsChanged(): void {
+    this._onDidChangeGroups.fire();
   }
 }

@@ -1,6 +1,7 @@
 {
-  "name": "breakpoint-groups",
-  "displayName": "Breakpoint Groups",
+  "name": "breakpoint-bucket",
+  "displayName": "Breakpoint Bucket",
+  "repository": "https://github.com/Raghava-Ch/breakpoint-bucket.git",
   "description": "Group breakpoints and enable/disable them collectively or individually",
   "version": "0.1.0",
   "publisher": "your-publisher-name",
@@ -25,124 +26,191 @@
     "views": {
       "debug": [
         {
-          "id": "breakpointGroups",
-          "name": "Breakpoint Groups",
+              "id": "breakpointBucket",
+              "name": "Breakpoint Bucket",
           "when": "breakpointsExist"
         }
       ]
     },
     "commands": [
       {
-        "command": "breakpointGroups.createGroup",
+        "command": "breakpointBucket.createGroup",
         "title": "Create New Group",
         "icon": "$(add)"
       },
       {
-        "command": "breakpointGroups.addToGroup",
+        "command": "breakpointBucket.addToGroup",
         "title": "Add to Group"
       },
       {
-        "command": "breakpointGroups.removeFromGroup",
+        "command": "breakpointBucket.removeFromGroup",
         "title": "Remove from Group"
       },
       {
-        "command": "breakpointGroups.enableGroup",
+        "command": "breakpointBucket.enableGroup",
         "title": "Enable Group"
       },
       {
-        "command": "breakpointGroups.disableGroup",
+        "command": "breakpointBucket.disableGroup",
         "title": "Disable Group"
       },
       {
-        "command": "breakpointGroups.deleteGroup",
+        "command": "breakpointBucket.deleteGroup",
         "title": "Delete Group"
       },
       {
-        "command": "breakpointGroups.renameGroup",
+        "command": "breakpointBucket.renameGroup",
         "title": "Rename Group"
       },
       {
-        "command": "breakpointGroups.enableBreakpoint",
+        "command": "breakpointBucket.enableBreakpoint",
         "title": "Enable Breakpoint"
       },
       {
-        "command": "breakpointGroups.disableBreakpoint",
+        "command": "breakpointBucket.disableBreakpoint",
         "title": "Disable Breakpoint"
       },
       {
-        "command": "breakpointGroups.createGroupFromBreakpoint",
+        "command": "breakpointBucket.createGroupFromBreakpoint",
         "title": "Create Group from Breakpoint"
+      },
+      {
+        "command": "breakpointBucket.removeAllBreakpointsInGroup",
+        "title": "Remove All Breakpoints in Group"
+      },
+      {
+        "command": "breakpointBucket.removeAllUngroupedBreakpoints",
+        "title": "Remove All Ungrouped Breakpoints"
+      },
+      {
+        "command": "breakpointBucket.removeAllGroups",
+        "title": "Remove All Groups"
+      },
+      {
+        "command": "breakpointBucket.moveBreakpointToGroup",
+        "title": "Move Breakpoint to Group"
+      },
+      {
+        "command": "breakpointBucket.moveSelectedBreakpointsToGroup",
+        "title": "Move Selected Breakpoints to Group"
       }
     ],
     "menus": {
       "view/title": [
         {
-          "command": "breakpointGroups.createGroup",
-          "when": "view == breakpointGroups",
+          "command": "breakpointBucket.createGroup",
+          "when": "view == breakpointBucket",
           "group": "navigation"
         }
       ],
       "view/item/context": [
         {
-          "command": "breakpointGroups.enableGroup",
-          "when": "view == breakpointGroups && viewItem == group",
+          "command": "breakpointBucket.enableGroup",
+          "when": "view == breakpointBucket && viewItem == group",
           "group": "1_enable_disable"
         },
         {
-          "command": "breakpointGroups.disableGroup",
-          "when": "view == breakpointGroups && viewItem == group",
+          "command": "breakpointBucket.disableGroup",
+          "when": "view == breakpointBucket && viewItem == group",
           "group": "1_enable_disable"
         },
         {
-          "command": "breakpointGroups.renameGroup",
-          "when": "view == breakpointGroups && viewItem == group",
+          "command": "breakpointBucket.renameGroup",
+          "when": "view == breakpointBucket && viewItem == group",
           "group": "2_manage"
         },
         {
-          "command": "breakpointGroups.deleteGroup",
-          "when": "view == breakpointGroups && viewItem == group",
+          "command": "breakpointBucket.deleteGroup",
+          "when": "view == breakpointBucket && viewItem == group",
           "group": "2_manage"
         },
         {
-          "command": "breakpointGroups.enableBreakpoint",
-          "when": "view == breakpointGroups && viewItem == breakpoint",
+          "command": "breakpointBucket.enableBreakpoint",
+          "when": "view == breakpointBucket && viewItem == breakpoint",
           "group": "1_enable_disable"
         },
         {
-          "command": "breakpointGroups.disableBreakpoint",
-          "when": "view == breakpointGroups && viewItem == breakpoint",
+          "command": "breakpointBucket.disableBreakpoint",
+          "when": "view == breakpointBucket && viewItem == breakpoint",
           "group": "1_enable_disable"
         },
         {
-          "command": "breakpointGroups.removeFromGroup",
-          "when": "view == breakpointGroups && viewItem == breakpoint",
+          "command": "breakpointBucket.removeFromGroup",
+          "when": "view == breakpointBucket && viewItem == breakpoint",
           "group": "2_manage"
         },
         {
-          "command": "breakpointGroups.enableBreakpoint",
-          "when": "view == breakpointGroups && viewItem == ungrouped-breakpoint",
+          "command": "breakpointBucket.enableBreakpoint",
+          "when": "view == breakpointBucket && viewItem == ungrouped-breakpoint",
           "group": "1_enable_disable"
         },
         {
-          "command": "breakpointGroups.disableBreakpoint",
-          "when": "view == breakpointGroups && viewItem == ungrouped-breakpoint",
+          "command": "breakpointBucket.disableBreakpoint",
+          "when": "view == breakpointBucket && viewItem == ungrouped-breakpoint",
           "group": "1_enable_disable"
         },
         {
-          "command": "breakpointGroups.addToGroup",
-          "when": "view == breakpointGroups && viewItem == ungrouped-breakpoint",
+          "command": "breakpointBucket.addToGroup",
+          "when": "view == breakpointBucket && viewItem == ungrouped-breakpoint",
           "group": "2_manage"
         },
         {
-          "command": "breakpointGroups.createGroupFromBreakpoint",
-          "when": "view == breakpointGroups && viewItem == ungrouped-breakpoint",
+          "command": "breakpointBucket.createGroupFromBreakpoint",
+          "when": "view == breakpointBucket && viewItem == ungrouped-breakpoint",
           "group": "2_manage"
+        },
+        {
+          "command": "breakpointBucket.removeAllBreakpointsInGroup",
+          "when": "view == breakpointBucket && viewItem == group",
+          "group": "3_remove"
+        },
+        {
+          "command": "breakpointBucket.removeAllUngroupedBreakpoints",
+          "when": "view == breakpointBucket",
+          "group": "view/title"
+        },
+        {
+          "command": "breakpointBucket.removeAllGroups",
+          "when": "view == breakpointBucket",
+          "group": "view/title"
+        },
+        {
+          "command": "breakpointBucket.moveBreakpointToGroup",
+          "when": "view == breakpointBucket && viewItem == breakpoint",
+          "group": "2_manage"
+        },
+        {
+          "command": "breakpointBucket.moveBreakpointToGroup",
+          "when": "view == breakpointBucket && viewItem == ungrouped-breakpoint",
+          "group": "2_manage"
+        },
+        {
+          "command": "breakpointBucket.moveSelectedBreakpointsToGroup",
+          "when": "view == breakpointBucket",
+          "group": "view/title"
         }
       ],
       "breakpoints/context": [
         {
-          "command": "breakpointGroups.addToGroup",
+          "command": "breakpointBucket.addToGroup",
           "when": "breakpoint"
+        }
+      ],
+      "keybindings": [
+        {
+          "command": "breakpointBucket.moveSelectedBreakpointsToGroup",
+          "key": "ctrl+shift+m",
+          "when": "view == breakpointBucket"
+        },
+        {
+          "command": "breakpointBucket.removeAllUngroupedBreakpoints",
+          "key": "ctrl+shift+u",
+          "when": "view == breakpointBucket"
+        },
+        {
+          "command": "breakpointBucket.removeAllGroups",
+          "key": "ctrl+shift+g",
+          "when": "view == breakpointBucket"
         }
       ]
     }

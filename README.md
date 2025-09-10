@@ -1,10 +1,10 @@
-# Breakpoint Groups
+# Breakpoint Bucket
 
 A VS Code extension that allows you to group breakpoints and enable/disable them collectively or individually.
 
 ## Features
 
-- **Create Breakpoint Groups**: Organize your breakpoints into named groups
+- **Create Breakpoint Buckets**: Organize your breakpoints into named groups
 - **Bulk Operations**: Enable or disable all breakpoints in a group with a single click
 - **Individual Control**: Still manage individual breakpoints within groups
 - **Persistent Storage**: Groups and assignments are saved across VS Code sessions

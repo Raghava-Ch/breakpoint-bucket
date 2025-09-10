@@ -87,15 +87,39 @@ export class BreakpointItem extends vscode.TreeItem {
   ) {
     // Show breakpoint like native VS Code breakpoints panel
     const fileName = breakpoint.file.split('/').pop() || breakpoint.file;
-    super(`${fileName}:${breakpoint.line}`, vscode.TreeItemCollapsibleState.None);
+    const filePath = breakpoint.file;
+    
+    // Format label with line number on the right
+    super(`${fileName}`, vscode.TreeItemCollapsibleState.None);
     this.contextValue = 'breakpoint';
     this.breakpointId = breakpoint.id;
     this.groupId = groupId;
+    
+    // Set description to show full path (will be truncated by VS Code based on width)
+    this.description = filePath;
+    
+    // Add line number as a separate property for right alignment
+    this.label = `${fileName}`;
+    
+    // Add line number to the right side using resourceUri and command
+    this.resourceUri = vscode.Uri.file(breakpoint.file);
+    this.command = {
+      command: 'vscode.open',
+      title: 'Open File',
+      arguments: [
+        vscode.Uri.file(breakpoint.file),
+        {
+          selection: new vscode.Range(
+            new vscode.Position(breakpoint.line - 1, 0),
+            new vscode.Position(breakpoint.line - 1, 0)
+          )
+        }
+      ]
+    };
+    
     this.tooltip = `${breakpoint.file}:${breakpoint.line}${breakpoint.condition ? ` (${breakpoint.condition})` : ''} - ${breakpoint.enabled ? 'Enabled' : 'Disabled'}`;
-    this.description = breakpoint.condition ? `Condition: ${breakpoint.condition}` : undefined;
+    
     // Use proper checkbox styling - no additional icons
-    this.label = `${fileName}:${breakpoint.line}`;
-    // Make checkboxes non-interactive (visual only)
     this.checkboxState = breakpoint.enabled ? vscode.TreeItemCheckboxState.Checked : vscode.TreeItemCheckboxState.Unchecked;
     // Remove iconPath to eliminate reserved space
     this.iconPath = undefined;
@@ -110,14 +134,38 @@ export class UngroupedBreakpointItem extends vscode.TreeItem {
   ) {
     // Show breakpoint like native VS Code breakpoints panel
     const fileName = breakpoint.file.split('/').pop() || breakpoint.file;
-    super(`${fileName}:${breakpoint.line}`, vscode.TreeItemCollapsibleState.None);
+    const filePath = breakpoint.file;
+    
+    // Format label with line number on the right
+    super(`${fileName}`, vscode.TreeItemCollapsibleState.None);
     this.contextValue = 'ungrouped-breakpoint';
     this.breakpointId = breakpoint.id;
+    
+    // Set description to show full path (will be truncated by VS Code based on width)
+    this.description = filePath;
+    
+    // Add line number as a separate property for right alignment
+    this.label = `${fileName}`;
+    
+    // Add line number to the right side using resourceUri and command
+    this.resourceUri = vscode.Uri.file(breakpoint.file);
+    this.command = {
+      command: 'vscode.open',
+      title: 'Open File',
+      arguments: [
+        vscode.Uri.file(breakpoint.file),
+        {
+          selection: new vscode.Range(
+            new vscode.Position(breakpoint.line - 1, 0),
+            new vscode.Position(breakpoint.line - 1, 0)
+          )
+        }
+      ]
+    };
+    
     this.tooltip = `${breakpoint.file}:${breakpoint.line}${breakpoint.condition ? ` (${breakpoint.condition})` : ''} - ${breakpoint.enabled ? 'Enabled' : 'Disabled'}`;
-    this.description = breakpoint.condition ? `Condition: ${breakpoint.condition}` : undefined;
+    
     // Use proper checkbox styling - no additional icons
-    this.label = `${fileName}:${breakpoint.line}`;
-    // Make checkboxes non-interactive (visual only)
     this.checkboxState = breakpoint.enabled ? vscode.TreeItemCheckboxState.Checked : vscode.TreeItemCheckboxState.Unchecked;
     // Remove iconPath to eliminate reserved space
     this.iconPath = undefined;

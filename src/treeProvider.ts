@@ -51,6 +51,16 @@ export class BreakpointGroupsProvider implements vscode.TreeDataProvider<Breakpo
       if (breakpoint) {
         // Update breakpoint checkbox state based on enabled status
         element.checkboxState = breakpoint.enabled ? vscode.TreeItemCheckboxState.Checked : vscode.TreeItemCheckboxState.Unchecked;
+        
+        // Update label to show line number on the right
+        const fileName = breakpoint.file.split('/').pop() || breakpoint.file;
+        element.label = `${fileName}`;
+        
+        // Update description to show full path (truncated by VS Code)
+        element.description = breakpoint.file;
+        
+        // Update tooltip with line number
+        element.tooltip = `${breakpoint.file}:${breakpoint.line}${breakpoint.condition ? ` (${breakpoint.condition})` : ''} - ${breakpoint.enabled ? 'Enabled' : 'Disabled'}`;
       }
     }
     return element;
